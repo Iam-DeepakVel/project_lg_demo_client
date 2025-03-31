@@ -28,19 +28,22 @@ function App() {
   useEffect(() => {
     const handleReferral = async () => {
       const path = window.location.pathname;
-      if (path.startsWith('/r/')) {
+      if (path.includes('/r/')) {
         try {
-          const referralCode = path.split('/r/')[1];
+          const pathParts = path.split('/r/');
+          const referralCode = pathParts[1];
+          const redirectUrl = pathParts[0];
           const isLoggedIn = Cookies.get('access_token');
+          
           await post('/api/v1/user/increment-click-rate', { referralCode });
           if (isLoggedIn) {
             await post('/api/v1/referral/update', { referralCode });
-            navigate('/');
+            navigate(redirectUrl);
           } else {
             const data = await get(`/api/v1/referral/${referralCode}`);
             if (data?.token) {
               Cookies.set('referralToken', data.token);
-              navigate('/');
+              navigate(redirectUrl);
             }
           }
         } catch (error) {

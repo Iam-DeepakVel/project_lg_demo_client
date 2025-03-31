@@ -15,7 +15,7 @@ function DashboardStats({ dashboardData }) {
             Total Logged In Referrals
           </dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
-            {dashboardData?.totalReferredUsers || 0}
+            {dashboardData?.referredUsersList?.length || 0}
           </dd>
         </div>
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow-lg shadow-red-400/50 sm:p-6">

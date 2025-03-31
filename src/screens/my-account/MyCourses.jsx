@@ -1,81 +1,82 @@
 import { get } from "../../helpers/apiService";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const posts = [
   {
     id: "67e816c3dd3068408486c85a",
-    title: "Master the Art of Public Speaking",
+    title: "Ex Back Plan",
     href: "#",
     description:
       "Learn proven techniques to overcome stage fright, engage your audience, and deliver powerful presentations that leave a lasting impact. Perfect for professionals and aspiring speakers.",
     imageUrl:
-      "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+      "https://res.cloudinary.com/diailujxc/image/upload/v1743404537/ex_back_plan_ezswik.jpg",
     date: "Jan 12, 2024",
     datetime: "2024-01-12",
-    category: { title: "Speaking", href: "#" },
+    category: { title: "Relationships", href: "#" },
     author: {
-      name: "Sarah Johnson",
-      role: "Public Speaking Coach",
+      name: "Sakthivel AN",
+      role: "Relationship Coach",
       href: "#",
       imageUrl:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+        "https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png",
     },
   },
   {
-    id: "67e816ccdd3068408486c85c", 
-    title: "Data Science Fundamentals",
+    id: "67e816ccdd3068408486c85c",
+    title: "Lover Interest Booster Program",
     href: "#",
     description:
       "Dive into the world of data analysis, machine learning, and statistical modeling. Learn to extract meaningful insights from complex datasets and drive data-informed decisions.",
     imageUrl:
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
-    date: "Feb 03, 2024", 
+      "https://res.cloudinary.com/diailujxc/image/upload/v1743404537/love_interest_booster_program_he4rgn.jpg",
+    date: "Feb 03, 2024",
     datetime: "2024-02-03",
-    category: { title: "Data Science", href: "#" },
+    category: { title: "Dating", href: "#" },
     author: {
-      name: "David Chen",
-      role: "Data Scientist",
+      name: "Sakthivel AN",
+      role: "Dating Coach",
       href: "#",
       imageUrl:
-        "https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+        "https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png",
     },
   },
   {
     id: "67e816d2dd3068408486c85e",
-    title: "Digital Marketing Mastery",
+    title: "Alpha Male ( Strong Character Development )",
     href: "#",
     description:
       "Master the latest digital marketing strategies, from social media campaigns to SEO optimization. Learn to build and execute comprehensive marketing plans that drive real results.",
     imageUrl:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+      "https://res.cloudinary.com/diailujxc/image/upload/v1743404536/alpha_male_course_lg7uvc.jpg",
     date: "Feb 15, 2024",
     datetime: "2024-02-15",
-    category: { title: "Marketing", href: "#" },
+    category: { title: "Self Development", href: "#" },
     author: {
-      name: "Emma Wilson",
-      role: "Marketing Director",
+      name: "Sakthivel AN",
+      role: "Life Coach",
       href: "#",
       imageUrl:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+        "https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png",
     },
   },
   {
     id: "67e816d7dd3068408486c860",
-    title: "Full-Stack Web Development",
+    title: "Alpha Kadhalan ( Relationship Psychology )",
     href: "#",
     description:
       "Build modern web applications from scratch. Cover everything from front-end frameworks to back-end architecture, databases, and deployment strategies.",
     imageUrl:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+      "https://res.cloudinary.com/diailujxc/image/upload/v1743404534/alpha_kadhalan_d4kali.jpg",
     date: "Mar 01, 2024",
     datetime: "2024-03-01",
-    category: { title: "Development", href: "#" },
+    category: { title: "Psychology", href: "#" },
     author: {
-      name: "Alex Rodriguez",
-      role: "Senior Developer",
+      name: "Sakthivel AN",
+      role: "Relationship Expert",
       href: "#",
       imageUrl:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+        "https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png",
     },
   },
 ];
@@ -104,7 +105,7 @@ export default function MyCourses() {
             Here are the courses you have enrolled in.
           </p>
           <div className="mt-12 space-y-20 lg:mt-8 lg:space-y-20">
-            {myCourses.map((post) => (
+            {myCourses.length > 0 ? myCourses.map((post) => (
               <article
                 key={post.id}
                 className="relative isolate flex flex-col gap-8 lg:flex-row"
@@ -141,16 +142,22 @@ export default function MyCourses() {
                     </p>
                   </div>
                   <div className="mt-6 flex border-t border-gray-900/5 pt-6">
-                    <button
+                    <Link
+                      to={`/course/${post.id}`}
                       type="button"
                       className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                     >
                       Watch Course
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </article>
-            ))}
+            )) : (
+              <div className="flex justify-center items-center h-full">
+                <p className="text-gray-900 text-lg font-semibold">No courses found. Please enroll in a course to view it here.</p>
+                <Link to="/courses" className="text-indigo-600 text-lg ml-2 font-semibold">Click here to enroll in a course</Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

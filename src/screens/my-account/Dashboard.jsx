@@ -3,13 +3,15 @@ import ReferralLoginUsers from "../../Components/my-account/ReferralLoginUsers";
 import ReferralCourseEnrolled from "../../Components/my-account/ReferralCourseEnrolled";
 import { get } from "../../helpers/apiService";
 import { useEffect, useState } from "react";
-
+import toast from "react-hot-toast";
 export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
 
   const getDashboardData = async () => {
+    toast.loading("Loading dashboard data...");
     const response = await get(`/api/v1/dashboard/stats`);
     setDashboardData(response);
+    toast.dismiss();
   }
   useEffect(() => {
     getDashboardData();

@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ export default function Register() {
   const user = useSelector((state) => state.user.value);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,21 +23,62 @@ export default function Register() {
     confirmPassword: "",
   });
 
+  const validateField = (name, value) => {
+    let error = "";
+    switch (name) {
+      case "name":
+        if (!value) error = "Name is required";
+        else if (value.length < 3) error = "Name must be at least 3 characters";
+        else if (/\d/.test(value)) error = "Name cannot contain numbers";
+        break;
+      case "email":
+        if (!value) error = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(value)) error = "Email is invalid";
+        break;
+      case "phone":
+        if (!value) error = "Phone number is required";
+        else if (!/^\d+$/.test(value)) error = "Phone number must contain only digits";
+        break;
+      case "password":
+        if (!value) error = "Password is required";
+        else if (value.length < 8) error = "Password must be at least 8 characters";
+        break;
+      case "confirmPassword":
+        if (!value) error = "Please confirm your password";
+        else if (value !== formData.password) error = "Passwords do not match";
+        break;
+      default:
+        break;
+    }
+    return error;
+  };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: validateField(name, value) });
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setIsLoading(true);
+      
+      // Validate all fields
+      const newErrors = {};
+      Object.keys(formData).forEach(key => {
+        const error = validateField(key, formData[key]);
+        if (error) newErrors[key] = error;
+      });
 
-      const { name, email, phone, password, confirmPassword } = formData;
-
-      if (password !== confirmPassword) {
-        alert("Passwords do not match");
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
         return;
       }
+
+      setIsLoading(true);
+      toast.loading("Signing up...");
+
+      const { name, email, phone, password } = formData;
 
       const response = await post("/api/v1/auth/register", {
         name,
@@ -44,16 +87,26 @@ export default function Register() {
         password,
       });
 
+      if (response?.message === "User already exists") {
+        toast.dismiss();
+        toast.error(response?.message || "Registration failed");
+        return;
+      }
+
       if (response?.token) {
         Cookies.set("access_token", response.token);
         Cookies.remove("referralToken");
         await dispatch(fetchUserDetails()).unwrap();
+        toast.dismiss();
+        toast.success("Registration successful!");
         navigate("/");
       } else {
-        alert("Registration failed");
+        toast.dismiss();
+        toast.error("Registration failed");
       }
     } catch (error) {
-      console.log(error);
+      toast.dismiss();
+      toast.error(error.message || "Registration failed");
     } finally {
       setIsLoading(false);
     }
@@ -107,10 +160,11 @@ export default function Register() {
                         type="text"
                         required
                         autoComplete="name"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.name ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
                         value={formData.name}
                         onChange={handleChange}
                       />
+                      {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
                     </div>
                   </div>
 
@@ -128,10 +182,11 @@ export default function Register() {
                         type="email"
                         required
                         autoComplete="email"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.email ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
                         value={formData.email}
                         onChange={handleChange}
                       />
+                      {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
                     </div>
                   </div>
 
@@ -149,10 +204,11 @@ export default function Register() {
                         type="tel"
                         required
                         autoComplete="tel"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.phone ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
                         value={formData.phone}
                         onChange={handleChange}
                       />
+                      {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
                     </div>
                   </div>
 
@@ -170,16 +226,17 @@ export default function Register() {
                         type="password"
                         required
                         autoComplete="current-password"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.password ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
                         value={formData.password}
                         onChange={handleChange}
                       />
+                      {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password}</p>}
                     </div>
                   </div>
 
                   <div>
                     <label
-                      htmlFor="password"
+                      htmlFor="confirmPassword"
                       className="block text-sm/6 font-medium text-gray-900"
                     >
                       Confirm Password
@@ -191,17 +248,18 @@ export default function Register() {
                         type="password"
                         required
                         autoComplete="current-password"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.confirmPassword ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
                         value={formData.confirmPassword}
                         onChange={handleChange}
                       />
+                      {errors.confirmPassword && <p className="mt-1 text-xs text-red-500">{errors.confirmPassword}</p>}
                     </div>
                   </div>
 
                   <div>
                     <button
                       type="submit"
-                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                       onClick={handleSubmit}
                       disabled={isLoading}
                     >

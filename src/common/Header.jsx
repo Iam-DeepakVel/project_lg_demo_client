@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,14 +29,14 @@ export default function Header() {
         className="flex items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Love Guru</span>
             <img
               alt="Love Guru"
-              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-              className="h-8 w-auto"
+              src="https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png"
+              className="h-12 w-auto"
             />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -59,17 +59,28 @@ export default function Header() {
             </Link>
           ))}
           {user.isAuthenticated && (
-            <Link
-              to="/my-account/dashboard"
-              className="font-semibold text-gray-900"
-            >
-              My Account
-            </Link>
+            <>
+              <Link
+                to="/my-account/dashboard"
+                className="font-semibold text-gray-900"
+              >
+                My Account
+              </Link>
+              <Link
+                to="/my-account/referral"
+                className="font-semibold text-gray-900"
+              >
+                Refer & Earn
+              </Link>
+            </>
           )}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {!user.isAuthenticated ? (
-            <Link to="/login" className="font-semibold text-gray-900 cursor-pointer">
+            <Link
+              to="/login"
+              className="font-semibold text-gray-900 cursor-pointer"
+            >
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>
           ) : (
@@ -94,8 +105,8 @@ export default function Header() {
               <span className="sr-only">Love Guru</span>
               <img
                 alt="Love Guru"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-8 w-auto"
+                src="https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png"
+                className="h-12 w-auto"
               />
             </Link>
             <button
@@ -120,12 +131,20 @@ export default function Header() {
                   </Link>
                 ))}
                 {user.isAuthenticated && (
-                  <Link
-                    to="/my-account/dashboard"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                  >
-                    My Account
-                  </Link>
+                  <>
+                    <Link
+                      to="/my-account/dashboard"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                    >
+                      My Account
+                    </Link>
+                    <Link
+                      to="/my-account/referral"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                    >
+                      Refer & Earn
+                    </Link>
+                  </>
                 )}
               </div>
               {!user.isAuthenticated ? (

@@ -32,7 +32,7 @@ export const apiCall = async (method, url, data = null) => {
     return response.data;
   } catch (error) {
     console.log("API CALL ERROR", error);
-    throw error?.response?.data || "An unexpected error occurred";
+    return error?.response?.data || "An unexpected error occurred";
   }
 };
 

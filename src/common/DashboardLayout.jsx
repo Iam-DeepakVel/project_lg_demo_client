@@ -109,8 +109,8 @@ export default function DashboardLayout({ children }) {
                 <div className="flex h-16 shrink-0 items-center">
                   <img
                     alt="Love Guru"
-                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                    className="h-8 w-auto"
+                    src="https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png"
+                    className="h-12 w-auto"
                   />
                 </div>
                 <nav className="flex flex-1 flex-col">
@@ -189,8 +189,8 @@ export default function DashboardLayout({ children }) {
             <div className="flex h-16 shrink-0 items-center">
               <img
                 alt="Love Guru"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
+                src="https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png"
+                className="h-12 w-auto"
               />
             </div>
             <nav className="flex flex-1 flex-col">

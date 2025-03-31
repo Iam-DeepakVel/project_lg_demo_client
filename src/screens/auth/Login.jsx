@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { fetchUserDetails } from "../../redux/user";
 import { post } from "../../helpers/apiService";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -12,19 +13,52 @@ export default function Login() {
   const user = useSelector((state) => state.user.value);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const validateField = (name, value) => {
+    let error = "";
+    switch (name) {
+      case "email":
+        if (!value) error = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(value)) error = "Email is invalid";
+        break;
+      case "password":
+        if (!value) error = "Password is required";
+        break;
+      default:
+        break;
+    }
+    return error;
+  };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: validateField(name, value) });
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+
+      // Validate all fields
+      const newErrors = {};
+      Object.keys(formData).forEach(key => {
+        const error = validateField(key, formData[key]);
+        if (error) newErrors[key] = error;
+      });
+
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+
       setIsLoading(true);
+      toast.loading("Signing in...");
 
       const { email, password } = formData;
 
@@ -33,16 +67,26 @@ export default function Login() {
         password,
       });
 
+      if (response?.message === "Invalid credentials") {
+        toast.dismiss();
+        toast.error(response?.message || "Invalid email or password");
+        return;
+      }
+
       if (response?.token) {
         Cookies.set("access_token", response.token);
         Cookies.remove("referralToken");
         await dispatch(fetchUserDetails()).unwrap();
+        toast.dismiss();
+        toast.success("Login successful!");
         navigate("/");
       } else {
-        alert("Login failed");
+        toast.dismiss();
+        toast.error("Login failed");
       }
     } catch (error) {
-      console.log(error);
+      toast.dismiss();
+      toast.error(error.message || "Login failed");
     } finally {
       setIsLoading(false);
     }
@@ -96,10 +140,11 @@ export default function Login() {
                         type="email"
                         required
                         autoComplete="email"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.email ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
                         value={formData.email}
                         onChange={handleChange}
                       />
+                      {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
                     </div>
                   </div>
 
@@ -117,17 +162,18 @@ export default function Login() {
                         type="password"
                         required
                         autoComplete="current-password"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.password ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
                         value={formData.password}
                         onChange={handleChange}
                       />
+                      {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password}</p>}
                     </div>
                   </div>
 
                   <div>
                     <button
                       type="submit"
-                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                       onClick={handleSubmit}
                       disabled={isLoading}
                     >
