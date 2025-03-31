@@ -1,7 +1,7 @@
 export default function ReferralLoginUsers({ dashboardData }) {
   return dashboardData?.referredUsersList?.length > 0 ? (
     <div className="rounded-lg bg-white px-4 py-5 shadow-lg min-h-[500px] shadow-red-400/50 sm:p-6">
-      <h3 className="text-base font-semibold font-semibold text-gray-500">
+      <h3 className="text-base font-semibold text-gray-500">
         Referral Login Users
       </h3>
       <ul
@@ -41,7 +41,7 @@ export default function ReferralLoginUsers({ dashboardData }) {
     </div>
   ) : (
     <div className="rounded-lg bg-white px-4 py-5 shadow-lg shadow-red-400/50 sm:p-6">
-      <h3 className="text-base font-semibold font-semibold text-gray-500">
+      <h3 className="text-base font-semibold text-gray-500">
         Referral Login Users
       </h3>
       <p>No users found</p>

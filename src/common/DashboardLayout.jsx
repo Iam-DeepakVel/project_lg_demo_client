@@ -13,10 +13,12 @@ import {
   FolderIcon,
   HomeIcon,
   UsersIcon,
+  ArrowLeftIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/user";
 
 const navigation = [
   {
@@ -56,10 +58,6 @@ const quickLinks = [
   { id: 3, name: "About", href: "/about", initial: "A", current: false },
   { id: 4, name: "Contact", href: "/contact", initial: "C", current: false },
 ];
-const userNavigation = [
-  { name: "View profile", href: "/my-account/profile" },
-  { name: "Sign out", href: "/logout" },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -68,8 +66,13 @@ function classNames(...classes) {
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
 
   const pathname = useLocation().pathname;
+
+  if (user.loading || !user.initialized) {
+    return null;
+  }
 
   return (
     <>
@@ -164,16 +167,16 @@ export default function DashboardLayout({ children }) {
                       </ul>
                     </li>
                     <li className="mt-auto">
-                      <Link
-                        to="/"
-                        className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
+                      <button
+                        onClick={() => dispatch(logout())}
+                        className="group -mx-2 flex gap-x-3 rounded-md p-2 w-full text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white cursor-pointer"
                       >
                         <HomeIcon
                           aria-hidden="true"
                           className="size-6 shrink-0"
                         />
-                        Back to Home
-                      </Link>
+                        Logout
+                      </button>
                     </li>
                   </ul>
                 </nav>
@@ -244,13 +247,13 @@ export default function DashboardLayout({ children }) {
                   </ul>
                 </li>
                 <li className="mt-auto">
-                  <Link
-                    to="/"
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white"
+                  <button
+                    onClick={() => dispatch(logout())}
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 w-full text-sm/6 font-semibold text-gray-400 hover:bg-gray-800 hover:text-white cursor-pointer"
                   >
-                    <HomeIcon aria-hidden="true" className="size-6 shrink-0" />
-                    Back to Home
-                  </Link>
+                    <ArrowLeftIcon aria-hidden="true" className="size-6 shrink-0" />
+                    Logout
+                  </button>
                 </li>
               </ul>
             </nav>
@@ -283,7 +286,7 @@ export default function DashboardLayout({ children }) {
                     <span className="hidden lg:flex lg:items-center">
                       <span
                         aria-hidden="true"
-                        className="ml-4 font-semibold text-gray-900"
+                        className="ml-4 font-semibold capitalize text-gray-900"
                       >
                         Welcome, {user.name}
                       </span>

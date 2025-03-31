@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -8,7 +8,6 @@ import { logout } from "../redux/user";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Courses", href: "/courses" },
-  { name: "Services", href: "/services" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
@@ -18,12 +17,18 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const user = useSelector((state) => state.user.value);
 
+  const pathname = useLocation().pathname;
+
   if (user.loading || !user.initialized) {
     return null;
   }
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header
+      className={`absolute inset-x-0 shadow-lg top-0 z-50 ${
+        pathname === "/" ? "bg-transparent shadow-none" : "bg-white"
+      }`}
+    >
       <nav
         aria-label="Global"
         className="flex items-center justify-between p-6 lg:px-8"

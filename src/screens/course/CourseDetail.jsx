@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { post } from "../../helpers/apiService";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const courses = [
   {
@@ -125,7 +126,7 @@ export default function CourseDetail() {
   return (
     <>
       <Header />
-      <div className="bg-white mt-16">
+      <div className="bg-white mt-24">
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
             <ol
@@ -181,21 +182,48 @@ export default function CourseDetail() {
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                 {currentCourse.name}
               </h1>
-              <div className="relative flex mt-4 gap-2 rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+              <div className="flex mt-4 gap-2 rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                 Wanna refer your friends {currentCourse.name} Course?{" "}
-                <p
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `${window.location.origin}/course/${id}/r/${user.referralCode}`
-                    );
-                    toast.success("Course referral link copied to clipboard");
-                  }}
-                  className="font-semibold text-indigo-600 cursor-pointer"
-                >
-                  <span aria-hidden="true" className="absolute inset-0" />
-                  Copy Course Referral Link{" "}
-                  <span aria-hidden="true">&rarr;</span>
-                </p>
+                {user.isAuthenticated ? (
+                  <div className="flex gap-2">
+                    <p
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          `${window.location.origin}/course/${id}/r/${user.referralCode}`
+                        );
+                        toast.success(
+                          "Course referral link copied to clipboard"
+                        );
+                      }}
+                      className="font-semibold text-red-600 cursor-pointer"
+                    >
+                      <span aria-hidden="true" className="inset-0" />
+                      Copy Course Referral Link{" "}
+                      <span aria-hidden="true">&rarr;</span>
+                    </p>
+                    <p
+                      onClick={() => {
+                        const shareUrl = `${window.location.origin}/course/${id}/r/${user.referralCode}`;
+                        const whatsappUrl = `https://wa.me/?text=Check out this course: ${encodeURIComponent(
+                          shareUrl
+                        )}`;
+                        window.open(whatsappUrl, "_blank");
+                      }}
+                      className="font-semibold text-indigo-600 cursor-pointer"
+                    >
+                      <span aria-hidden="true" className="inset-0" />
+                      Share Course Referral Link{" "}
+                      <span aria-hidden="true">&rarr;</span>
+                    </p>
+                  </div>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="font-semibold text-indigo-600 cursor-pointer"
+                  >
+                    Login to Share Course Referral Link
+                  </Link>
+                )}
               </div>
             </div>
 

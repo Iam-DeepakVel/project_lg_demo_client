@@ -1,18 +1,29 @@
 import { ClipboardIcon } from "@heroicons/react/20/solid";
 import { ShareIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 export default function Referral() {
   const user = useSelector((state) => state.user.value);
   const referralLink = `http://localhost:5173/r/${user.referralCode}`;
 
-  const handleCopy = (text) => {
+  const handleCopy = (text, type) => {
     navigator.clipboard.writeText(text);
+    toast.success(`${type} copied to clipboard`);
   };
 
-  const handleShare = (text) => {
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
-    window.open(whatsappUrl, '_blank');
+  const handleShare = (text, type) => {
+    let whatsappUrl;
+    if (type === "Referral Link") {
+      whatsappUrl = `https://wa.me/?text=Join Love Guru by using this referral link: ${encodeURIComponent(
+        text
+      )}`;
+    } else {
+      whatsappUrl = `https://wa.me/?text=Join Love Guru by using this referral code: ${encodeURIComponent(
+        text
+      )}`;
+    }
+    window.open(whatsappUrl, "_blank");
   };
 
   const projects = [
@@ -23,35 +34,35 @@ export default function Referral() {
       value: referralLink,
       bgColor: "bg-pink-600",
       icon: [
-        <ClipboardIcon 
+        <ClipboardIcon
           key="copy"
-          onClick={() => handleCopy(referralLink)}
-          className="h-6 w-6 text-gray-900 hover:text-gray-500 cursor-pointer" 
+          onClick={() => handleCopy(referralLink, "Referral Link")}
+          className="h-6 w-6 text-red-500 hover:text-red-700 cursor-pointer"
         />,
-        <ShareIcon 
+        <ShareIcon
           key="share"
-          onClick={() => handleShare(referralLink)}
-          className="h-6 w-6 text-blue-500 hover:text-blue-300 cursor-pointer" 
-        />
+          onClick={() => handleShare(referralLink, "Referral Link")}
+          className="h-6 w-6 text-blue-500 hover:text-blue-700 cursor-pointer"
+        />,
       ],
     },
     {
       name: "Your Referral Code",
-      initials: "CODE", 
+      initials: "CODE",
       href: "#",
       value: user.referralCode,
       bgColor: "bg-purple-600",
       icon: [
         <ClipboardIcon
           key="copy"
-          onClick={() => handleCopy(user.referralCode)}
-          className="h-6 w-6 text-gray-900 hover:text-gray-500 cursor-pointer"
+          onClick={() => handleCopy(user.referralCode, "Referral Code")}
+          className="h-6 w-6 text-red-500 hover:text-red-700 cursor-pointer"
         />,
         <ShareIcon
-          key="share" 
-          onClick={() => handleShare(user.referralCode)}
-          className="h-6 w-6 text-blue-500 hover:text-blue-300 cursor-pointer"
-        />
+          key="share"
+          onClick={() => handleShare(user.referralCode, "Referral Code")}
+          className="h-6 w-6 text-blue-500 hover:text-blue-700 cursor-pointer"
+        />,
       ],
     },
   ];
@@ -68,10 +79,7 @@ export default function Referral() {
       <p className="mt-2 text-lg/8 text-gray-600">
         Share your referral link with your friends and earn rewards.
       </p>
-      <ul
-        role="list"
-        className="flex flex-col gap-8 mt-4"
-      >
+      <ul role="list" className="flex flex-col gap-8 mt-4">
         {projects.map((project) => (
           <li
             key={project.name}
