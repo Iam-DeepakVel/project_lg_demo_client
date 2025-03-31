@@ -148,7 +148,7 @@ export default function MyCourses() {
                       <Link
                         to={`/course/${post.id}`}
                         type="button"
-                        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                        className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600 cursor-pointer"
                       >
                         Watch Course
                       </Link>
@@ -157,14 +157,14 @@ export default function MyCourses() {
                 </article>
               ))
             ) : (
-              <div className="flex justify-center items-center h-full">
+              <div className="flex flex-col md:flex-row md:justify-center md:items-center h-full">
                 <p className="text-gray-900 text-lg font-semibold">
                   No courses found. Please enroll in a course to view it here.
                 </p>
 
                 <Link
                   to="/courses"
-                  className="ml-4 rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                  className="md:ml-4 rounded-md bg-red-600 px-3.5 py-2.5 w-1/2 md:w-auto mt-4 md:mt-0 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600"
                 >
                   Enroll Now
                 </Link>

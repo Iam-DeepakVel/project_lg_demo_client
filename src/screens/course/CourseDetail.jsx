@@ -197,7 +197,7 @@ export default function CourseDetail() {
                           "Course referral link copied to clipboard"
                         );
                       }}
-                      className="rounded-md bg-red-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600 cursor-pointer"
+                      className="rounded-md bg-black px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-gray-800 cursor-pointer"
                     >
                       Copy Referral Link
                     </button>
@@ -209,7 +209,7 @@ export default function CourseDetail() {
                         )}`;
                         window.open(whatsappUrl, "_blank");
                       }}
-                      className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                      className="rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                     >
                       Share on WhatsApp
                     </button>
@@ -217,7 +217,7 @@ export default function CourseDetail() {
                 ) : (
                   <Link
                     to="/login"
-                    className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                    className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                   >
                     Login to Share
                   </Link>

@@ -27,7 +27,7 @@ export default function Home() {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-48">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-              {user.isAuthenticated? <span className="font-semibold text-red-600 text-md">Welcome, {user.name}! </span> : ""}Wanna refer your friends and earn?{" "}
+              {user.isAuthenticated? <span className="font-semibold text-red-600 text-md capitalize">Welcome, {user.name}! </span> : ""}Wanna refer your friends and earn?{" "}
               {user.isAuthenticated ? (
                 <Link
                   to="/my-account/referral"

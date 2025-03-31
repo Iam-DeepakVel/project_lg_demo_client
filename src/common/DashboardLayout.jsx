@@ -124,6 +124,7 @@ export default function DashboardLayout({ children }) {
                           <li key={item.name}>
                             <Link
                               to={item.href}
+                              onClick={() => setSidebarOpen(false)}
                               className={classNames(
                                 item.href === pathname
                                   ? "bg-gray-800 text-white"
