@@ -32,10 +32,10 @@ const posts = [
       "https://res.cloudinary.com/diailujxc/image/upload/v1743404537/love_interest_booster_program_he4rgn.jpg",
     date: "Feb 03, 2024",
     datetime: "2024-02-03",
-    category: { title: "Dating", href: "#" },
+    category: { title: "Relationship", href: "#" },
     author: {
       name: "Sakthivel AN",
-      role: "Dating Coach",
+      role: "Relationship Coach",
       href: "#",
       imageUrl:
         "https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png",

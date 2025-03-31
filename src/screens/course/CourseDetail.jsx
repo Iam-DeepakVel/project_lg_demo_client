@@ -46,11 +46,11 @@ const courses = [
     highlights: [
       "Confidence building exercises",
       "Attraction psychology",
-      "Dating strategies",
+      "Life strategies",
       "Relationship development skills",
     ],
     details:
-      "This program combines practical techniques with psychological insights to help you become more attractive and confident in your romantic pursuits. Perfect for those looking to improve their dating life and relationship skills.",
+      "This program combines practical techniques with psychological insights to help you become more attractive and confident in your romantic pursuits. Perfect for those looking to improve their relationship skills.",
   },
   {
     id: "67e816d2dd3068408486c85e",
