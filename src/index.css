@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  font-family: sans-serif;
+  font-family: cursive;
   line-height: 1.5;
   font-weight: 400;
 
@@ -37,4 +37,3 @@
   scrollbar-width: thin;
   scrollbar-color: #171717 #f1f1f1;
 }
-

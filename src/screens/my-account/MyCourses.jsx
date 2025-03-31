@@ -86,10 +86,12 @@ export default function MyCourses() {
 
   const getMyCourses = async () => {
     const response = await get(`/api/v1/user/get-my-courses`);
-    const filteredCourses = response.map((course) => course._id); 
-    const filteredPosts = posts.filter(post => filteredCourses.includes(post.id));
+    const filteredCourses = response.map((course) => course._id);
+    const filteredPosts = posts.filter((post) =>
+      filteredCourses.includes(post.id)
+    );
     setMyCourses(filteredPosts);
-  }
+  };
   useEffect(() => {
     getMyCourses();
   }, []);
@@ -98,64 +100,74 @@ export default function MyCourses() {
     <div className="bg-white">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto md:px-12">
-          <h2 className="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+          <h2 className="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
             My Courses
           </h2>
           <p className="mt-2 text-lg/8 text-gray-600">
             Here are the courses you have enrolled in.
           </p>
           <div className="mt-12 space-y-20 lg:mt-8 lg:space-y-20">
-            {myCourses.length > 0 ? myCourses.map((post) => (
-              <article
-                key={post.id}
-                className="relative isolate flex flex-col gap-8 lg:flex-row"
-              >
-                <div className="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
-                  <img
-                    alt=""
-                    src={post.imageUrl}
-                    className="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover"
-                  />
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-x-4 text-xs">
-                    <time dateTime={post.datetime} className="text-gray-500">
-                      {post.date}
-                    </time>
-                    <a
-                      href={post.category.href}
-                      className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                    >
-                      {post.category.title}
-                    </a>
+            {myCourses.length > 0 ? (
+              myCourses.map((post) => (
+                <article
+                  key={post.id}
+                  className="relative isolate flex flex-col gap-8 lg:flex-row"
+                >
+                  <div className="relative aspect-video sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
+                    <img
+                      alt=""
+                      src={post.imageUrl}
+                      className="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover"
+                    />
+                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
-                  <div className="group relative max-w-xl">
-                    <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
-                      <a href={post.href}>
-                        <span className="absolute inset-0" />
-                        {post.title}
+                  <div>
+                    <div className="flex items-center gap-x-4 text-xs">
+                      <time dateTime={post.datetime} className="text-gray-500">
+                        {post.date}
+                      </time>
+                      <a
+                        href={post.category.href}
+                        className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+                      >
+                        {post.category.title}
                       </a>
-                    </h3>
-                    <p className="mt-5 text-sm/6 text-gray-600">
-                      {post.description}
-                    </p>
+                    </div>
+                    <div className="group relative max-w-xl">
+                      <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
+                        <a href={post.href}>
+                          <span className="absolute inset-0" />
+                          {post.title}
+                        </a>
+                      </h3>
+                      <p className="mt-5 text-sm/6 text-gray-600">
+                        {post.description}
+                      </p>
+                    </div>
+                    <div className="mt-6 flex border-t border-gray-900/5 pt-6">
+                      <Link
+                        to={`/course/${post.id}`}
+                        type="button"
+                        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                      >
+                        Watch Course
+                      </Link>
+                    </div>
                   </div>
-                  <div className="mt-6 flex border-t border-gray-900/5 pt-6">
-                    <Link
-                      to={`/course/${post.id}`}
-                      type="button"
-                      className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
-                    >
-                      Watch Course
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            )) : (
+                </article>
+              ))
+            ) : (
               <div className="flex justify-center items-center h-full">
-                <p className="text-gray-900 text-lg font-semibold">No courses found. Please enroll in a course to view it here.</p>
-                <Link to="/courses" className="text-indigo-600 text-lg ml-2 font-semibold">Click here to enroll in a course</Link>
+                <p className="text-gray-900 text-lg font-semibold">
+                  No courses found. Please enroll in a course to view it here.
+                </p>
+
+                <Link
+                  to="/courses"
+                  className="ml-4 rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                >
+                  Enroll Now
+                </Link>
               </div>
             )}
           </div>

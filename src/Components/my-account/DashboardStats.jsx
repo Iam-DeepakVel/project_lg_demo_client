@@ -4,7 +4,7 @@ function DashboardStats({ dashboardData }) {
       <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow-lg shadow-red-400/50 sm:p-6">
           <dt className="truncate text-sm font-semibold text-gray-500">
-            Click Rate
+            Referral Click Rate
           </dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
             {dashboardData?.clickRate.clickRate || 0}

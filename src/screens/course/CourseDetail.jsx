@@ -168,7 +168,7 @@ export default function CourseDetail() {
           </nav>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
             <img
               alt={currentCourse.images[0].alt}
               src={currentCourse.images[0].src}
@@ -182,11 +182,13 @@ export default function CourseDetail() {
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                 {currentCourse.name}
               </h1>
-              <div className="flex mt-4 gap-2 rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                Wanna refer your friends {currentCourse.name} Course?{" "}
+              <div className="flex mt-4 gap-2 items-center">
+                <p className="text-sm/6 text-gray-600">
+                  Wanna refer your friends to this course?
+                </p>
                 {user.isAuthenticated ? (
                   <div className="flex gap-2">
-                    <p
+                    <button
                       onClick={() => {
                         navigator.clipboard.writeText(
                           `${window.location.origin}/course/${id}/r/${user.referralCode}`
@@ -195,13 +197,11 @@ export default function CourseDetail() {
                           "Course referral link copied to clipboard"
                         );
                       }}
-                      className="font-semibold text-red-600 cursor-pointer"
+                      className="rounded-md bg-red-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600 cursor-pointer"
                     >
-                      <span aria-hidden="true" className="inset-0" />
-                      Copy Course Referral Link{" "}
-                      <span aria-hidden="true">&rarr;</span>
-                    </p>
-                    <p
+                      Copy Referral Link
+                    </button>
+                    <button
                       onClick={() => {
                         const shareUrl = `${window.location.origin}/course/${id}/r/${user.referralCode}`;
                         const whatsappUrl = `https://wa.me/?text=Check out this course: ${encodeURIComponent(
@@ -209,19 +209,17 @@ export default function CourseDetail() {
                         )}`;
                         window.open(whatsappUrl, "_blank");
                       }}
-                      className="font-semibold text-indigo-600 cursor-pointer"
+                      className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                     >
-                      <span aria-hidden="true" className="inset-0" />
-                      Share Course Referral Link{" "}
-                      <span aria-hidden="true">&rarr;</span>
-                    </p>
+                      Share on WhatsApp
+                    </button>
                   </div>
                 ) : (
                   <Link
                     to="/login"
-                    className="font-semibold text-indigo-600 cursor-pointer"
+                    className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline  focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                   >
-                    Login to Share Course Referral Link
+                    Login to Share
                   </Link>
                 )}
               </div>
@@ -238,7 +236,7 @@ export default function CourseDetail() {
                 <button
                   type="submit"
                   onClick={handleEnroll}
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer"
+                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-semibold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 cursor-pointer"
                 >
                   {user.isAuthenticated ? "Enroll Now" : "Login to Enroll"}
                 </button>

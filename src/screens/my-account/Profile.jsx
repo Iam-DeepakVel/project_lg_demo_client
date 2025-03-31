@@ -4,7 +4,7 @@ export default function Profile() {
   const user = useSelector((state) => state.user.value);
   return (
     <div>
-      <h2 className="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+      <h2 className="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
         My Profile
       </h2>
       <p className="mt-2 text-lg/8 text-gray-600">

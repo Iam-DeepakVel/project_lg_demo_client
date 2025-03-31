@@ -13,10 +13,10 @@ export default function ReferralLoginUsers({ dashboardData }) {
             <div className="flex min-w-0 gap-x-4">
               <p>{index + 1}.</p>
               <div className="min-w-0 flex-auto">
-                <p className="text-sm/6 font-semibold text-gray-900">
+                <p className="text-md font-semibold text-gray-900">
                   {person?.referredUserName}
                 </p>
-                <p className="mt-1 truncate text-xs/5 text-gray-500">
+                <p className="mt-1 truncate text-sm text-gray-500">
                   {person?.referredUserEmail}
                 </p>
               </div>

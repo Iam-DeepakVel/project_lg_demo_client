@@ -126,8 +126,8 @@ export default function Register() {
             <div>
               <img
                 alt="Love Guru"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-10 w-auto"
+                src="https://res.cloudinary.com/diailujxc/image/upload/v1743404525/lg_logo_ybwla5.png"
+                className="h-24 w-auto mx-auto md:mx-0"
               />
               <h2 className="mt-8 text-2xl/9 font-bold tracking-tight text-gray-900">
                 Create an account
@@ -136,14 +136,14 @@ export default function Register() {
                 Already a member?{" "}
                 <Link
                   to="/login"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
+                  className="font-semibold text-red-600 hover:text-red-500"
                 >
                   Login now
                 </Link>
               </p>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-6">
               <div>
                 <form action="#" method="POST" className="space-y-6">
                   <div>
@@ -160,7 +160,7 @@ export default function Register() {
                         type="text"
                         required
                         autoComplete="name"
-                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.name ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline -outline-offset-1 ${errors.name ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-black sm:text-sm/6`}
                         value={formData.name}
                         onChange={handleChange}
                       />
@@ -182,7 +182,7 @@ export default function Register() {
                         type="email"
                         required
                         autoComplete="email"
-                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.email ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline -outline-offset-1 ${errors.email ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-black sm:text-sm/6`}
                         value={formData.email}
                         onChange={handleChange}
                       />
@@ -204,7 +204,7 @@ export default function Register() {
                         type="tel"
                         required
                         autoComplete="tel"
-                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.phone ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline -outline-offset-1 ${errors.phone ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-black sm:text-sm/6`}
                         value={formData.phone}
                         onChange={handleChange}
                       />
@@ -226,7 +226,7 @@ export default function Register() {
                         type="password"
                         required
                         autoComplete="current-password"
-                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.password ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline -outline-offset-1 ${errors.password ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-black sm:text-sm/6`}
                         value={formData.password}
                         onChange={handleChange}
                       />
@@ -248,7 +248,7 @@ export default function Register() {
                         type="password"
                         required
                         autoComplete="current-password"
-                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${errors.confirmPassword ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                        className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline -outline-offset-1 ${errors.confirmPassword ? 'outline-red-500' : 'outline-gray-300'} placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-black sm:text-sm/6`}
                         value={formData.confirmPassword}
                         onChange={handleChange}
                       />
@@ -259,7 +259,7 @@ export default function Register() {
                   <div>
                     <button
                       type="submit"
-                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                      className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600 cursor-pointer"
                       onClick={handleSubmit}
                       disabled={isLoading}
                     >

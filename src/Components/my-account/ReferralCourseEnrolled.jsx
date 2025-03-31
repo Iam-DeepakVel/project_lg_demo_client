@@ -5,7 +5,7 @@ export default function ReferralCourseEnrolled({ dashboardData }) {
 
   return usersWithCourses?.length > 0 ? (
     <div className="rounded-lg bg-white px-4 py-5 shadow-lg shadow-red-400/50 sm:p-6">
-      <h3 className="text-base font-semibold font-semibold text-gray-500">
+      <h3 className="text-lg font-semibold text-gray-900">
         Referral Course Enrolled
       </h3>
       <ul
@@ -15,12 +15,12 @@ export default function ReferralCourseEnrolled({ dashboardData }) {
         {usersWithCourses.map((person, index) => (
           <li key={person.email} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
-              <p>{index + 1}.</p>
+              <p className="text-gray-500">{index + 1}.</p>
               <div className="min-w-0 flex-auto">
-                <p className="text-sm text-gray-500">
+                <p className="text-gray-500">
                   {person.email}
                 </p>
-                <p className="mt-1 truncate text-xs/5 text-gray-500">
+                <p className="mt-1 truncate text-sm/5 text-gray-900">
                   {person.enrolledCourses.map((course, index) => {
                     return (
                       <>
@@ -42,7 +42,7 @@ export default function ReferralCourseEnrolled({ dashboardData }) {
     </div>
   ) : (
     <div className="rounded-lg bg-white px-4 py-5 shadow-lg shadow-red-400/50 sm:p-6">
-      <h3 className="text-base font-semibold font-semibold text-gray-500">
+      <h3 className="text-base font-semibold text-gray-500">
         Referral Course Enrolled
       </h3>
       <p>No courses found</p>

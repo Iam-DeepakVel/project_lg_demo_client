@@ -23,6 +23,8 @@ export default function Header() {
     return null;
   }
 
+  const isCoursePage = pathname.startsWith('/course/');
+
   return (
     <header
       className={`absolute inset-x-0 shadow-lg top-0 z-50 ${
@@ -58,7 +60,7 @@ export default function Header() {
             <Link
               key={item.name}
               to={item.href}
-              className="font-semibold text-gray-900"
+              className={`font-semibold text-gray-900 ${(pathname === item.href || (item.href === '/courses' && isCoursePage)) ? 'border-b-4 border-red-500' : ''}`}
             >
               {item.name}
             </Link>
@@ -67,13 +69,13 @@ export default function Header() {
             <>
               <Link
                 to="/my-account/dashboard"
-                className="font-semibold text-gray-900"
+                className={`font-semibold text-gray-900 ${pathname === '/my-account/dashboard' ? 'border-b-4 border-red-500' : ''}`}
               >
                 My Account
               </Link>
               <Link
                 to="/my-account/referral"
-                className="font-semibold text-gray-900"
+                className={`font-semibold text-gray-900 ${pathname === '/my-account/referral' ? 'border-b-4 border-red-500' : ''}`}
               >
                 Refer & Earn
               </Link>
@@ -84,7 +86,7 @@ export default function Header() {
           {!user.isAuthenticated ? (
             <Link
               to="/login"
-              className="font-semibold text-gray-900 cursor-pointer"
+              className={`font-semibold text-gray-900 cursor-pointer ${pathname === '/login' ? 'border-b-4 border-red-500' : ''}`}
             >
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>
@@ -130,7 +132,7 @@ export default function Header() {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                    className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 ${(pathname === item.href || (item.href === '/courses' && isCoursePage)) ? 'border-b-4 border-red-500' : ''}`}
                   >
                     {item.name}
                   </Link>
@@ -139,13 +141,13 @@ export default function Header() {
                   <>
                     <Link
                       to="/my-account/dashboard"
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                      className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 ${pathname === '/my-account/dashboard' ? 'border-b-4 border-red-500' : ''}`}
                     >
                       My Account
                     </Link>
                     <Link
                       to="/my-account/referral"
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                      className={`-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 ${pathname === '/my-account/referral' ? 'border-b-4 border-red-500' : ''}`}
                     >
                       Refer & Earn
                     </Link>
@@ -156,7 +158,7 @@ export default function Header() {
                 <div className="py-6">
                   <Link
                     to="/login"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 cursor-pointer"
+                    className={`-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 cursor-pointer ${pathname === '/login' ? 'border-b-4 border-red-500' : ''}`}
                   >
                     Log in
                   </Link>
